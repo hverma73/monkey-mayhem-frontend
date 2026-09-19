@@ -1,5 +1,6 @@
 /* Small building blocks shared by every public-site page. */
 import { Link } from 'react-router-dom';
+import { ProgramBadge } from './ProgramIcons.jsx';
 import { wa, week as weekData } from '../siteData.js';
 
 /* ---- photo slot -------------------------------------------------------
@@ -84,7 +85,10 @@ export function ProgramCard({ program }) {
   const catClass = `c-${program.cat.replace(/[^A-Za-z0-9-]/g, '-')}`;
   return (
     <article className="card hoverable r">
-      <PhotoSlot label={program.name} />
+      <div className="prog-ph">
+        <PhotoSlot label={program.name} />
+        <ProgramBadge name={program.name} />
+      </div>
       <div className="card-b">
         <span className={`tag ${catClass}`}>{program.cat}</span>
         <h3>{program.name}</h3>

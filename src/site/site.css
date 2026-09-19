@@ -277,6 +277,32 @@ html[data-surface='site'] body {
 .mm-site .ph.tall { --ar: 3/4; }
 .mm-site .ph.sq { --ar: 1/1; }
 .mm-site .ph.wide { --ar: 21/9; }
+.mm-site .prog-ph { position: relative; }
+.mm-site .prog-ph .cap { display: none; }
+.mm-site .pbadge {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(84px, 38%, 116px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #f2ead6;
+  color: #0b0c0e;
+  box-shadow:
+    0 0 0 1px rgba(11, 12, 14, 0.35),
+    inset 0 0 0 2px rgba(11, 12, 14, 0.48),
+    inset 0 0 0 6px rgba(11, 12, 14, 0.18);
+  overflow: hidden;
+  z-index: 1;
+}
+.mm-site .pbadge svg {
+  width: 76%;
+  height: 76%;
+  display: block;
+}
+.mm-site .pbadge svg * { vector-effect: non-scaling-stroke; }
 
 /* ---- grids & cards ---- */
 .mm-site .grid { display: grid; gap: 16px; }
