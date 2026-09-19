@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Local env overrides (VITE_* vars)
+.env
+.env.*
+!.env.example
+
+# OS noise
+.DS_Store

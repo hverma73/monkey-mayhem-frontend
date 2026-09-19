@@ -1,0 +1,646 @@
+/* =====================================================================
+   MONKEY MAYHEM FIGHT CLUB — STAFF CONSOLE design system
+   Direction: "Fight Night" broadcast, matched to the public site (whose
+   ramp lives in src/site/site.css). Condensed italic display type over a
+   clean athletic body (Barlow), fight-red on near-black, section labels
+   in steel. The data stays quiet and legible; the chrome carries the
+   personality.
+
+   The public site is deliberately dark-only; the console keeps the
+   light/dark toggle, so every colour below is defined in both ramps.
+
+   SCOPING — read before adding a rule
+   -----------------------------------
+   Every rule here is prefixed with
+
+       :where(.app-shell, .login-wrap)
+
+   the console shell and the login screen. The public site reuses generic
+   class names (.nav, .card, .btn, .field, .eyebrow, .brand, .who…) with
+   different meanings, and these two stylesheets ship in one bundle. Without
+   the prefix the console's mobile `.nav { display: none }` hid the site's
+   entire header, `.card { padding: 20px }` double-padded its cards, and
+   `.eyebrow::before` drew a second tick next to every section label.
+
+   `:where()` contributes zero specificity, so the cascade *inside* the
+   console behaves exactly as if the prefix weren't there.
+
+   Only the document-level rules (:root ramps, html, body, *) stay global.
+   ===================================================================== */
+:root {
+  /* --- base ramp: dark (default) --- */
+  --bg:        #0b0c0e;
+  --surface:   #15181d;
+  --surface-2: #1c2027;
+  --line:      #282d35;
+  --bone:      #f3f4f6;          /* primary text */
+  --muted:     #9aa1ac;
+
+  /* --- accents (brand; shared with the public site) --- */
+  --oxblood:   #e4342c;          /* fight red: primary actions, active nav */
+  --oxblood-2: #ff5248;          /* hotter red: hover, critical numbers */
+  --brass:     #cfd4db;          /* steel: eyebrows, table heads, focus */
+  --brass-fg:  #0b0c0e;          /* text on a --brass fill */
+  --green:     #31c48d;
+  --amber:     #f6b73c;
+  --danger:    #e4342c;
+
+  /* --- semantic / theme-aware roles --- */
+  --link:        var(--brass);                       /* body links */
+  --on-accent:   #ffffff;                            /* text on red fills */
+  --topbar-bg:   linear-gradient(180deg, #15181d, #0b0c0e);
+  --hover:       rgba(255, 255, 255, 0.05);          /* row / nav hover wash */
+  --tint:        rgba(255, 255, 255, 0.02);          /* nested panel wash */
+
+  --chip-active-fg:   #7fe0bb;
+  --chip-inactive-fg: #ff9c95;
+  --chip-paused-fg:   #f8cd7d;
+  --notice-error-fg:  #ffb3ac;
+  --notice-ok-fg:     #9ce8cb;
+  --danger-fg:        #ff9c95;                       /* ghost "danger" text */
+
+  --radius: 5px;
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+
+  color-scheme: dark;
+}
+
+/* --- Light mode: cool paper, ink text; same brand accents --- */
+:root[data-theme='light'] {
+  --bg:        #f2f3f5;
+  --surface:   #ffffff;
+  --surface-2: #e8eaee;
+  --line:      #d2d6dd;
+  --bone:      #14171c;          /* primary text (near-black ink) */
+  --muted:     #616a77;
+
+  --oxblood:   #c8281f;          /* deepened so white text still clears AA */
+  --oxblood-2: #a51f18;
+  --brass:     #46505e;          /* steel, darkened to read on paper */
+  --brass-fg:  #ffffff;          /* text on a --brass fill */
+  --green:     #1c7d59;
+  --amber:     #9a6a10;
+  --danger:    #c8281f;
+
+  --link:        #b02219;
+  --on-accent:   #ffffff;
+  --topbar-bg:   linear-gradient(180deg, #ffffff, #e8eaee);
+  --hover:       rgba(0, 0, 0, 0.05);
+  --tint:        rgba(0, 0, 0, 0.03);
+
+  --chip-active-fg:   #14603f;
+  --chip-inactive-fg: #a51f18;
+  --chip-paused-fg:   #7c5410;
+  --notice-error-fg:  #a51f18;
+  --notice-ok-fg:     #14603f;
+  --danger-fg:        #a51f18;
+
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--bone);
+  font-family: 'Barlow', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Ease the swap between light and dark. */
+body,
+:where(.app-shell, .login-wrap) .topbar,
+:where(.app-shell, .login-wrap) .card,
+:where(.app-shell, .login-wrap) .stat,
+:where(.app-shell, .login-wrap) .cal-cell,
+:where(.app-shell, .login-wrap) .table-wrap,
+:where(.app-shell, .login-wrap) .fieldset,
+:where(.app-shell, .login-wrap) .tape,
+:where(.app-shell, .login-wrap) input,
+:where(.app-shell, .login-wrap) select,
+:where(.app-shell, .login-wrap) textarea {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+:where(.app-shell, .login-wrap) a { color: var(--link); text-decoration: none; }
+:where(.app-shell, .login-wrap) a:hover { text-decoration: underline; }
+
+:where(.app-shell, .login-wrap) h1,
+:where(.app-shell, .login-wrap) h2,
+:where(.app-shell, .login-wrap) h3 {
+  font-family: 'Barlow Condensed', system-ui, sans-serif;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 0.98;
+}
+
+/* Eyebrow label: small red tick + spaced caps. Encodes the section's role. */
+:where(.app-shell, .login-wrap) .eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--brass);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+:where(.app-shell, .login-wrap) .eyebrow::before {
+  content: '';
+  width: 18px;
+  height: 2px;
+  background: var(--oxblood-2);
+}
+
+/* ---- layout ---- */
+.app-shell { min-height: 100vh; display: flex; flex-direction: column; }
+
+:where(.app-shell, .login-wrap) .topbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 26px;
+  background: var(--topbar-bg);
+  border-bottom: 2px solid var(--oxblood);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+:where(.app-shell, .login-wrap) .brand { display: flex; align-items: center; gap: 12px; }
+
+/* The club emblem (public/logo.png — the same artwork the invoice PDF uses)
+   carries its own black field, so it's framed as a badge: that reads as a
+   patch on both the dark and the light ramp, not a stray black square. */
+.mm-logo {
+  display: block;
+  flex: none;
+  border-radius: 6px;
+  object-fit: contain;
+  background: #000;
+}
+:root[data-theme='light'] .mm-logo { box-shadow: 0 0 0 1px var(--line); }
+
+:where(.app-shell, .login-wrap) .brand-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 0.9;
+}
+:where(.app-shell, .login-wrap) .brand-name small {
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--brass);
+}
+
+:where(.app-shell, .login-wrap) .nav { display: flex; gap: 2px; margin-left: 4px; flex-wrap: wrap; }
+:where(.app-shell, .login-wrap) .nav a {
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  white-space: nowrap;
+}
+:where(.app-shell, .login-wrap) .nav a:hover { color: var(--bone); text-decoration: none; background: var(--hover); }
+:where(.app-shell, .login-wrap) .nav a.active { color: var(--on-accent); background: var(--oxblood); }
+
+/* Collapses the nav on phones. Hidden at desktop widths. */
+:where(.app-shell, .login-wrap) .topbar-burger {
+  display: none;
+  width: 42px;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: transparent;
+  cursor: pointer;
+  flex: none;
+}
+:where(.app-shell, .login-wrap) .topbar-burger span,
+:where(.app-shell, .login-wrap) .topbar-burger span::before,
+:where(.app-shell, .login-wrap) .topbar-burger span::after {
+  content: '';
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--bone);
+  margin: 0 auto;
+  position: relative;
+}
+:where(.app-shell, .login-wrap) .topbar-burger span::before { top: -5px; }
+:where(.app-shell, .login-wrap) .topbar-burger span::after { top: 3px; }
+
+:where(.app-shell, .login-wrap) .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 10px; flex: none; }
+:where(.app-shell, .login-wrap) .who { font-size: 13px; color: var(--muted); white-space: nowrap; }
+:where(.app-shell, .login-wrap) .who b { color: var(--bone); font-weight: 600; }
+
+:where(.app-shell, .login-wrap) .page { width: min(1180px, 100%); margin: 0 auto; padding: 28px 26px 60px; flex: 1; }
+
+/* ---- cards & sections ---- */
+:where(.app-shell, .login-wrap) .card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+:where(.app-shell, .login-wrap) .section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 30px 0 14px;
+  flex-wrap: wrap;
+}
+:where(.app-shell, .login-wrap) .section-head h2 { font-size: 26px; }
+
+/* ---- stat tiles ---- */
+:where(.app-shell, .login-wrap) .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+:where(.app-shell, .login-wrap) .stat {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--oxblood);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+:where(.app-shell, .login-wrap) .stat .num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 38px;
+  line-height: 1;
+}
+:where(.app-shell, .login-wrap) .stat .lbl { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+:where(.app-shell, .login-wrap) .stat.warn { border-left-color: var(--amber); }
+:where(.app-shell, .login-wrap) .stat.blood { border-left-color: var(--oxblood-2); }
+
+/* ---- tables ---- */
+:where(.app-shell, .login-wrap) .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); }
+:where(.app-shell, .login-wrap) table { width: 100%; border-collapse: collapse; font-size: 14px; }
+:where(.app-shell, .login-wrap) thead th {
+  text-align: left;
+  font-family: 'Barlow Condensed', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 12px;
+  color: var(--brass);
+  background: var(--surface-2);
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+:where(.app-shell, .login-wrap) tbody td { padding: 11px 14px; border-bottom: 1px solid var(--line); }
+:where(.app-shell, .login-wrap) tbody tr:last-child td { border-bottom: none; }
+:where(.app-shell, .login-wrap) tbody tr:hover { background: var(--hover); }
+:where(.app-shell, .login-wrap) .row-link { cursor: pointer; }
+
+/* ---- table pagination footer ---- */
+:where(.app-shell, .login-wrap) .pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  font-size: 13px;
+}
+:where(.app-shell, .login-wrap) .pagination-controls { display: flex; align-items: center; gap: 10px; }
+
+/* ---- status + expiry chips ---- */
+:where(.app-shell, .login-wrap) .chip {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 100px;
+  border: 1px solid transparent;
+}
+:where(.app-shell, .login-wrap) .chip.active   { color: var(--chip-active-fg);   background: rgba(49,196,141,0.16);  border-color: var(--green); }
+:where(.app-shell, .login-wrap) .chip.inactive { color: var(--chip-inactive-fg); background: rgba(228,52,44,0.14);   border-color: var(--danger); }
+:where(.app-shell, .login-wrap) .chip.noplan   { color: var(--muted);            background: var(--hover);           border-color: var(--line); }
+:where(.app-shell, .login-wrap) .chip.paused   { color: var(--chip-paused-fg);   background: rgba(246,183,60,0.16);  border-color: var(--amber); }
+:where(.app-shell, .login-wrap) .chip.upcoming { color: var(--brass);            background: rgba(207,212,219,0.14); border-color: var(--brass); }
+
+/* Clickable summary chips (drill-down buttons on the Payments page). */
+:where(.app-shell, .login-wrap) .chip-btn {
+  font-family: inherit;
+  cursor: pointer;
+  transition: filter 0.12s ease, box-shadow 0.12s ease;
+}
+:where(.app-shell, .login-wrap) .chip-btn:hover { filter: brightness(1.08); }
+:where(.app-shell, .login-wrap) .chip-btn:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+:where(.app-shell, .login-wrap) .chip-btn.chip-open { box-shadow: inset 0 0 0 1px currentColor; filter: brightness(1.06); }
+
+:where(.app-shell, .login-wrap) .days { font-weight: 700; }
+:where(.app-shell, .login-wrap) .days.ok   { color: var(--green); }
+:where(.app-shell, .login-wrap) .days.soon { color: var(--amber); }
+:where(.app-shell, .login-wrap) .days.crit { color: var(--oxblood-2); }
+
+/* ---- balance flags (Invoices "Balance" column) ---- */
+:where(.app-shell, .login-wrap) .bal-flag {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 13px;
+  white-space: nowrap;
+  padding: 2px 9px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+}
+:where(.app-shell, .login-wrap) .bal-flag.due    { color: var(--chip-inactive-fg); background: rgba(228,52,44,0.14);   border-color: var(--danger); }
+:where(.app-shell, .login-wrap) .bal-flag.paid   { color: var(--chip-active-fg);   background: rgba(49,196,141,0.16);  border-color: var(--green); }
+:where(.app-shell, .login-wrap) .bal-flag.credit { color: var(--brass);            background: rgba(207,212,219,0.14); border-color: var(--brass); }
+
+/* ---- "To Collect" summary strip (Invoices tab) ---- */
+:where(.app-shell, .login-wrap) .collect-bar { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin: 4px 0 6px; }
+:where(.app-shell, .login-wrap) .collect-tile {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--green);
+  border-radius: var(--radius);
+  padding: 12px 18px;
+}
+:where(.app-shell, .login-wrap) .collect-tile.due { border-left-color: var(--danger); }
+:where(.app-shell, .login-wrap) .collect-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1;
+}
+:where(.app-shell, .login-wrap) .collect-tile.due .collect-num { color: var(--chip-inactive-fg); }
+:where(.app-shell, .login-wrap) .collect-tile.clear .collect-num { color: var(--chip-active-fg); }
+:where(.app-shell, .login-wrap) .collect-lbl { font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+:where(.app-shell, .login-wrap) .collect-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  flex: 0 0 auto;                 /* never shrink — keeps the label on one line */
+  white-space: nowrap;            /* "Show only unpaid" stays a single line */
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+  user-select: none;
+}
+:where(.app-shell, .login-wrap) .collect-toggle input {
+  flex: 0 0 auto;                 /* checkbox keeps its size, isn't squeezed */
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--brass);
+  cursor: pointer;
+}
+
+/* ---- buttons ---- */
+:where(.app-shell, .login-wrap) .btn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 13px;
+  padding: 10px 18px;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+  color: var(--on-accent);
+  background: var(--oxblood);
+  /* the site's signature cut corner, on the console's buttons too */
+  clip-path: polygon(5px 0, 100% 0, calc(100% - 5px) 100%, 0 100%);
+  transition: filter 0.15s ease, transform 0.05s ease;
+}
+:where(.app-shell, .login-wrap) .topbar .btn { white-space: nowrap; }
+:where(.app-shell, .login-wrap) .btn:hover { filter: brightness(1.12); text-decoration: none; }
+:where(.app-shell, .login-wrap) .btn:active { transform: translateY(1px); }
+:where(.app-shell, .login-wrap) .btn:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+:where(.app-shell, .login-wrap) .btn.ghost { background: transparent; border-color: var(--line); color: var(--bone); }
+:where(.app-shell, .login-wrap) .btn.ghost:hover { border-color: var(--brass); }
+:where(.app-shell, .login-wrap) .btn.brass { background: var(--brass); color: var(--brass-fg); }
+:where(.app-shell, .login-wrap) .btn.danger { background: transparent; border-color: var(--danger); color: var(--danger-fg); }
+:where(.app-shell, .login-wrap) .btn.sm { padding: 6px 12px; font-size: 12px; }
+:where(.app-shell, .login-wrap) .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* theme toggle: icon-only ghost button */
+:where(.app-shell, .login-wrap) .theme-toggle { padding: 6px 9px; display: inline-flex; align-items: center; justify-content: center; }
+:where(.app-shell, .login-wrap) .theme-toggle svg { display: block; width: 17px; height: 17px; }
+.login-wrap .theme-toggle { position: absolute; top: 18px; right: 18px; }
+
+/* ---- forms ---- */
+:where(.app-shell, .login-wrap) .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+:where(.app-shell, .login-wrap) .field label { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+:where(.app-shell, .login-wrap) input,
+:where(.app-shell, .login-wrap) select,
+:where(.app-shell, .login-wrap) textarea {
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--bone);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  width: 100%;
+}
+:where(.app-shell, .login-wrap) input:focus,
+:where(.app-shell, .login-wrap) select:focus,
+:where(.app-shell, .login-wrap) textarea:focus {
+  outline: 2px solid var(--brass);
+  outline-offset: 0;
+  border-color: transparent;
+}
+:where(.app-shell, .login-wrap) textarea { resize: vertical; min-height: 64px; }
+:where(.app-shell, .login-wrap) .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+:where(.app-shell, .login-wrap) .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 16px; }
+:where(.app-shell, .login-wrap) .check { flex-direction: row; align-items: center; gap: 10px; }
+:where(.app-shell, .login-wrap) .check input { width: auto; }
+:where(.app-shell, .login-wrap) .check label { text-transform: none; letter-spacing: 0; font-size: 15px; color: var(--bone); }
+
+:where(.app-shell, .login-wrap) .fieldset {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+  margin-bottom: 20px;
+}
+:where(.app-shell, .login-wrap) .fieldset > .eyebrow { margin-bottom: 14px; }
+
+:where(.app-shell, .login-wrap) .toolbar { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+:where(.app-shell, .login-wrap) .toolbar input,
+:where(.app-shell, .login-wrap) .toolbar select { width: auto; min-width: 200px; }
+
+:where(.app-shell, .login-wrap) .notice { padding: 11px 14px; border-radius: var(--radius); font-size: 14px; margin-bottom: 14px; }
+:where(.app-shell, .login-wrap) .notice.error { background: rgba(228,52,44,0.14); border: 1px solid var(--danger); color: var(--notice-error-fg); }
+:where(.app-shell, .login-wrap) .notice.ok { background: rgba(49,196,141,0.16); border: 1px solid var(--green); color: var(--notice-ok-fg); }
+
+:where(.app-shell, .login-wrap) .muted { color: var(--muted); }
+:where(.app-shell, .login-wrap) .empty { padding: 40px; text-align: center; color: var(--muted); }
+:where(.app-shell, .login-wrap) .repeater-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr auto; gap: 10px; align-items: end; margin-bottom: 10px; }
+:where(.app-shell, .login-wrap) .actions-row { display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+
+/* ---- package catalogue (Custom Package Plan) ---- */
+:where(.app-shell, .login-wrap) .pkg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+:where(.app-shell, .login-wrap) .pkg-card { display: flex; flex-direction: column; gap: 10px; border-left: 3px solid var(--oxblood); }
+:where(.app-shell, .login-wrap) .pkg-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+:where(.app-shell, .login-wrap) .pkg-dur { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+:where(.app-shell, .login-wrap) .pkg-name { font-size: 22px; }
+:where(.app-shell, .login-wrap) .pkg-price {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1;
+}
+:where(.app-shell, .login-wrap) .pkg-permonth { font-size: 12px; color: var(--muted); }
+
+/* ---- login ---- */
+.login-wrap {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(900px 500px at 50% -10%, rgba(228,52,44,0.28), transparent 60%),
+    var(--bg);
+}
+.login-wrap .login-card { width: min(400px, 100%); }
+.login-wrap .login-card h1 { font-size: 34px; text-align: center; }
+.login-wrap .login-card .sub { text-align: center; color: var(--brass); letter-spacing: 3px; font-size: 11px; margin: 6px 0 22px; }
+.login-wrap .login-back {
+  text-align: center;
+  margin: 18px 0 0;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.login-wrap .login-back a { color: var(--muted); }
+.login-wrap .login-back a:hover { color: var(--bone); text-decoration: none; }
+
+/* ---- tale of the tape ---- */
+:where(.app-shell, .login-wrap) .tape { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+:where(.app-shell, .login-wrap) .tape .stat-line { display: flex; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+:where(.app-shell, .login-wrap) .tape .stat-line .k { color: var(--muted); text-transform: uppercase; font-size: 12px; letter-spacing: 1px; }
+:where(.app-shell, .login-wrap) .tape .stat-line .v { font-weight: 600; }
+
+/* ---- calendar ---- */
+:where(.app-shell, .login-wrap) .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+:where(.app-shell, .login-wrap) .cal-head { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); text-align: center; padding: 6px 0; }
+:where(.app-shell, .login-wrap) .cal-cell {
+  min-height: 92px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 6px 8px;
+}
+:where(.app-shell, .login-wrap) .cal-cell.blank { background: transparent; border-color: transparent; }
+:where(.app-shell, .login-wrap) .cal-cell.today { border-color: var(--brass); }
+:where(.app-shell, .login-wrap) .cal-date { font-size: 12px; color: var(--muted); }
+:where(.app-shell, .login-wrap) .cal-pill {
+  display: block;
+  font-size: 11px;
+  margin-top: 4px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: var(--oxblood);
+  color: var(--on-accent);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+/* =====================================================================
+   MOBILE — the console used to simply drop its nav below 820px, leaving
+   a phone with no way to change page. Now it collapses behind a burger.
+   ===================================================================== */
+@media (max-width: 820px) {
+  :where(.app-shell, .login-wrap) .stats { grid-template-columns: 1fr 1fr; }
+  :where(.app-shell, .login-wrap) .grid-2,
+  :where(.app-shell, .login-wrap) .grid-3 { grid-template-columns: 1fr; }
+  :where(.app-shell, .login-wrap) .tape { grid-template-columns: 1fr; }
+  :where(.app-shell, .login-wrap) .repeater-row { grid-template-columns: 1fr 1fr; }
+
+  /* topbar becomes two rows: brand + burger, then the drawer */
+  :where(.app-shell, .login-wrap) .topbar { flex-wrap: wrap; gap: 12px; padding: 12px 16px; }
+  :where(.app-shell, .login-wrap) .topbar-burger { display: block; margin-left: auto; order: 2; }
+
+  :where(.app-shell, .login-wrap) .nav {
+    display: none;
+    order: 4;
+    flex-basis: 100%;
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+  }
+  .app-shell.nav-open .nav { display: flex; }
+  :where(.app-shell, .login-wrap) .nav a {
+    padding: 12px 10px;
+    font-size: 14px;
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+  }
+  :where(.app-shell, .login-wrap) .nav a:last-child { border-bottom: none; }
+
+  :where(.app-shell, .login-wrap) .topbar-right { order: 3; margin-left: 0; gap: 10px; }
+  /* "In your corner: Gym Admin" is the first thing to go — it's what pushes
+     Log out off-screen. It reappears inside the open drawer. */
+  :where(.app-shell, .login-wrap) .who { display: none; }
+  .app-shell.nav-open .who {
+    display: block;
+    order: 5;
+    flex-basis: 100%;
+    padding-top: 4px;
+  }
+
+  :where(.app-shell, .login-wrap) .page { padding: 20px 16px 48px; }
+  :where(.app-shell, .login-wrap) .section-head { margin: 22px 0 12px; }
+  :where(.app-shell, .login-wrap) .section-head h2 { font-size: 22px; }
+  :where(.app-shell, .login-wrap) .stat .num { font-size: 30px; }
+
+  /* Filters stack instead of squeezing each other to unusable widths. */
+  :where(.app-shell, .login-wrap) .toolbar { gap: 10px; }
+  :where(.app-shell, .login-wrap) .toolbar input,
+  :where(.app-shell, .login-wrap) .toolbar select { flex: 1 1 100%; min-width: 0; }
+
+  /* 7 columns x 92px cells don't fit a phone; scroll the month instead of
+     shrinking every day to a 45px sliver. */
+  :where(.app-shell, .login-wrap) .cal-scroll { overflow-x: auto; }
+  :where(.app-shell, .login-wrap) .cal-grid { min-width: 620px; }
+
+  :where(.app-shell, .login-wrap) .card { padding: 16px; }
+  :where(.app-shell, .login-wrap) .fieldset { padding: 14px; }
+  :where(.app-shell, .login-wrap) .collect-bar { gap: 10px; }
+  :where(.app-shell, .login-wrap) .collect-tile { flex: 1 1 140px; padding: 12px 14px; }
+}
+
+@media (max-width: 520px) {
+  :where(.app-shell, .login-wrap) .stats { grid-template-columns: 1fr; }
+  :where(.app-shell, .login-wrap) .repeater-row { grid-template-columns: 1fr; }
+  :where(.app-shell, .login-wrap) .brand-name { font-size: 17px; }
+  :where(.app-shell, .login-wrap) .brand-name small { letter-spacing: 3px; }
+  :where(.app-shell, .login-wrap) .actions-row .btn,
+  :where(.app-shell, .login-wrap) .toolbar .btn { flex: 1 1 auto; }
+  :where(.app-shell, .login-wrap) .pagination { justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+}

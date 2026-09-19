@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="apple-touch-icon" href="/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0B0C0E" />
+    <title>Monkey Mayhem Fight Club — MMA, Boxing &amp; BJJ in Kadri, Mangaluru</title>
+    <meta
+      name="description"
+      content="Monkey Mayhem Fight Club — MMA, boxing, Muay Thai, BJJ, wrestling and conditioning in Kadri, Mangaluru. Twelve disciplines, a 50-fighter team, six days a week."
+    />
+    <!-- Set the theme before paint so there's no flash. Mirrors ThemeToggle's
+         storage key ('mm-theme'); falls back to the OS preference, then dark.
+         Only the staff console reads this — the public site is dark-only. -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('mm-theme');
+          var prefersLight =
+            window.matchMedia &&
+            window.matchMedia('(prefers-color-scheme: light)').matches;
+          document.documentElement.setAttribute(
+            'data-theme',
+            stored || (prefersLight ? 'light' : 'dark')
+          );
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,600&family=Barlow+Condensed:ital,wght@0,600;0,700;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
