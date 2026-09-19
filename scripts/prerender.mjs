@@ -1,10 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { createServer } from 'vite';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { StaticRouter } from 'react-router-dom/server';
+import { StaticRouter } from 'react-router-dom/server.js';
 import App from '../src/App.jsx';
 import { AuthProvider } from '../src/context/AuthContext.jsx';
 import { programs, posts } from '../src/site/siteData.js';
