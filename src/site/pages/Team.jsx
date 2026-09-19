@@ -7,7 +7,7 @@ export default function Team() {
       <PageHead
         eyebrow="In your corner"
         title="Team & trainers"
-        lead="One standard across every mat. (Sample names/photos shown where a trainer profile is still to be added.)"
+        lead="One standard across every mat."
       />
 
       <div className="grid g-auto">
