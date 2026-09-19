@@ -1,29 +1,14 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import React from 'react';
-import { renderToString } from 'react-dom/server';
-import { StaticRouter } from 'react-router-dom/server.js';
-import App from '../src/App.jsx';
-import { AuthProvider } from '../src/context/AuthContext.jsx';
-import { programs, posts } from '../src/site/siteData.js';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
 const outDir = path.join(rootDir, 'dist');
 
-const publicRoutes = [
-  '/',
-  '/programs',
-  ...programs.map((p) => `/programs/${slugify(p.name)}`),
-  '/batches',
-  '/team',
-  '/achievements',
-  '/events',
-  '/articles',
-  ...posts.map((p) => `/articles/${p.id}`),
-  '/contact',
-];
+const serverModuleUrl = pathToFileURL(path.join(rootDir, '.prerender', 'entry-server.js')).href;
+const { PUBLIC_ROUTES, render } = await import(serverModuleUrl);
+const publicRoutes = PUBLIC_ROUTES;
 
 const ROUTE_META = {
   '/': { title: 'MMA, Boxing & Muay Thai Gym in Mangaluru (Mangalore) | Monkey Mayhem', description: 'Monkey Mayhem Fight Club in Kadri, Mangaluru offers combat sports and fitness classes with MMA, boxing, Muay Thai, BJJ and yoga.' },
@@ -75,15 +60,7 @@ function buildSitemap() {
 }
 
 async function renderRoute(url) {
-  const appHtml = renderToString(
-    React.createElement(
-      StaticRouter,
-      { location: url },
-      React.createElement(AuthProvider, null, React.createElement(App))
-    )
-  );
-
-  return appHtml;
+  return render(url);
 }
 
 async function main() {

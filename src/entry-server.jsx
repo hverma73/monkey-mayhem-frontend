@@ -1,17 +1,16 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server.js';
-import App from './App.jsx';
+import { SiteRoutes } from './site/SiteRoutes.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
+export { PUBLIC_ROUTES } from './site/routes.js';
 
-export function renderApp(location) {
+export function render(url) {
   return renderToString(
-    <React.StrictMode>
-      <StaticRouter location={location}>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
-      </StaticRouter>
-    </React.StrictMode>
+    <StaticRouter location={url}>
+      <AuthProvider>
+        <SiteRoutes />
+      </AuthProvider>
+    </StaticRouter>
   );
 }

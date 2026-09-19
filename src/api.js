@@ -2,7 +2,8 @@
 const BASE = import.meta.env.VITE_API_URL || '';
 
 function authHeaders() {
-  const token = localStorage.getItem('mm_token');
+  if (typeof window === 'undefined' || !window.localStorage) return {};
+  const token = window.localStorage.getItem('mm_token');
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
@@ -10,9 +11,13 @@ function authHeaders() {
 // this event) so ProtectedRoute redirects to /login instead of leaving the user
 // on broken authed pages.
 function handleUnauthorized() {
-  localStorage.removeItem('mm_token');
-  localStorage.removeItem('mm_user');
-  window.dispatchEvent(new Event('mm-logout'));
+  if (typeof window !== 'undefined' && window.localStorage) {
+    window.localStorage.removeItem('mm_token');
+    window.localStorage.removeItem('mm_user');
+  }
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new Event('mm-logout'));
+  }
 }
 
 // `auth: false` opts a call out of the Bearer header entirely. Needed for the

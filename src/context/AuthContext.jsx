@@ -6,7 +6,8 @@ const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
-    const raw = localStorage.getItem('mm_user');
+    if (typeof window === 'undefined' || !window.localStorage) return null;
+    const raw = window.localStorage.getItem('mm_user');
     return raw ? JSON.parse(raw) : null;
   });
 
@@ -14,6 +15,7 @@ export function AuthProvider({ children }) {
   // this event; without it, `user` state stays truthy and ProtectedRoute keeps
   // rendering broken authed pages until a manual reload.
   useEffect(() => {
+    if (typeof window === 'undefined') return undefined;
     const onLogout = () => setUser(null);
     window.addEventListener('mm-logout', onLogout);
     return () => window.removeEventListener('mm-logout', onLogout);
@@ -23,15 +25,19 @@ export function AuthProvider({ children }) {
   // a re-render (Login needs to know immediately whether to open the console).
   async function login(username, password) {
     const { token, user: signedIn } = await api.login(username, password);
-    localStorage.setItem('mm_token', token);
-    localStorage.setItem('mm_user', JSON.stringify(signedIn));
+    if (typeof window !== 'undefined' && window.localStorage) {
+      window.localStorage.setItem('mm_token', token);
+      window.localStorage.setItem('mm_user', JSON.stringify(signedIn));
+    }
     setUser(signedIn);
     return signedIn;
   }
 
   function logout() {
-    localStorage.removeItem('mm_token');
-    localStorage.removeItem('mm_user');
+    if (typeof window !== 'undefined' && window.localStorage) {
+      window.localStorage.removeItem('mm_token');
+      window.localStorage.removeItem('mm_user');
+    }
     setUser(null);
   }
 
