@@ -6,6 +6,7 @@ import { ToastProvider } from './toast.jsx';
 import useReveal from './useReveal.js';
 import { site, wa } from './siteData.js';
 import { useAuth } from '../context/AuthContext.jsx';
+import usePageMeta from '../usePageMeta.js';
 import './site.css';
 
 /* Public-site nav. Order matters — it's the reading order of the club's
@@ -34,6 +35,7 @@ export default function SiteLayout() {
 function SiteShell() {
   const [navOpen, setNavOpen] = useState(false);
   const { pathname } = useLocation();
+  usePageMeta();
   useReveal();
 
   // Every navigation closes the mobile menu and returns to the top of the page.
@@ -169,7 +171,6 @@ function SiteFooter() {
         </div>
 
         <div className="foot-note">
-          <span>Content &amp; photos are placeholders · Design 3 · Fight Night</span>
           <span>Original content © {site.full}</span>
         </div>
       </div>
