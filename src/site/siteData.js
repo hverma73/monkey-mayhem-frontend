@@ -120,7 +120,7 @@ export const programs = [
 export const batches = [
   {
     name: 'Early Grind',
-    time: '6:00 – 7:30 AM',
+    time: '6:00 – 7:00 AM',
     days: 'Mon · Wed · Fri',
     focus: 'Strength & Conditioning',
     coach: 'Coach Nithesh',

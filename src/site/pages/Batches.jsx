@@ -13,7 +13,7 @@ export default function Batches() {
   return (
     <div className="wrap pg">
       <PageHead
-        eyebrow="Batches · Mon–Sat"
+        eyebrow="Batches · Mon–Fri"
         title="Find your batch"
         lead="Named batches for every schedule and level. Timings rotate — message us for the live sheet."
       />
