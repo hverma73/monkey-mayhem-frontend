@@ -232,45 +232,13 @@ export const team = [
     real: true,
   },
   {
-    name: 'Sample Trainer',
-    alias: '',
-    role: 'Boxing Coach',
-    tags: ['Boxing'],
-    bio: 'Head-movement obsessive. Runs the sunrise boxing block and the beginner mitt rounds.',
-    real: false,
-  },
-  {
-    name: 'Sample Trainer',
-    alias: '',
-    role: 'BJJ Coach',
-    tags: ['Brazilian Jiu-Jitsu'],
-    bio: 'Leverage over muscle. Leads gi and no-gi rolls and the weekend open mat.',
-    real: false,
-  },
-  {
-    name: 'Sample Trainer',
-    alias: '',
-    role: 'Strength & Conditioning',
-    tags: ['S&C'],
-    bio: 'Builds the engine — grip, hips, neck, lungs — behind every fighter on the team.',
-    real: false,
-  },
-  {
-    name: 'Sample Trainer',
+    name: 'Navaraj',
     alias: '',
     role: 'Wrestling Coach',
     tags: ['Wrestling'],
     bio: 'Takedowns and top pressure. Turns nervous beginners into people who chain shots.',
-    real: false,
-  },
-  {
-    name: 'Front Desk',
-    alias: '',
-    role: 'Member Support',
-    tags: ['Programs', 'Fees'],
-    bio: 'Your first point of contact — trials, batches, fees and everything admin.',
-    real: false,
-  },
+    real: true,
+  }
 ];
 
 export const achievements = [
