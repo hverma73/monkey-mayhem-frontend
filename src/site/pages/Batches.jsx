@@ -1,5 +1,6 @@
+import { useSearchParams } from 'react-router-dom';
 import { PageHead, WeekGrid } from '../components/bits.jsx';
-import { batches, wa } from '../siteData.js';
+import { batches, programs, wa } from '../siteData.js';
 import { useToast } from '../toast.jsx';
 
 /* "By invite" and "filling fast" are both cautions; anything else is open. */
@@ -9,6 +10,9 @@ function spotsBadge(spots) {
 
 export default function Batches() {
   const toast = useToast();
+  const [searchParams] = useSearchParams();
+  const requestedSlug = searchParams.get('program') || '';
+  const highlightProgram = programs.find((program) => program.slug === requestedSlug)?.name || '';
 
   return (
     <div className="wrap pg">
@@ -49,7 +53,7 @@ export default function Batches() {
       <h2 id="timetable" className="h2 r" style={{ margin: '44px 0 18px' }}>
         The full week
       </h2>
-      <WeekGrid />
+      <WeekGrid highlightProgram={highlightProgram} />
 
       <p className="note r" style={{ marginTop: 14 }}>
         Indicative timetable — sessions rotate.{' '}

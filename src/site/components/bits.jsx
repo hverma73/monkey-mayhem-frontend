@@ -1,4 +1,5 @@
 /* Small building blocks shared by every public-site page. */
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { site, wa, week as weekData } from '../siteData.js';
 import { waTo } from '../../utils.js';
@@ -64,15 +65,18 @@ export function SectionHead({ eyebrow, title, moreTo, moreLabel }) {
 }
 
 /* ---- program card ---- */
-export function ProgramCard({ program, mode = 'plate', compact = false }) {
+export function ProgramCard({ program, mode = 'plate' }) {
   const catClass = `c-${program.category.replace(/[^A-Za-z0-9-]/g, '-')}`;
   const isRow = mode === 'row';
   const isPoster = mode === 'poster' || Boolean(program.photo);
   const whatsappUrl = waTo(site.phoneRaw, program.whatsappText);
   const titleWords = program.name.split(' ');
-  const markIndex = titleWords.length > 1 ? Math.min(1, titleWords.length - 1) : 0;
+  const markIndex = titleWords.length > 1 ? 1 : -1;
   const title = titleWords.map((word, index) => (
-    index === markIndex ? <mark key={word}>{word}</mark> : `${word} `
+    <span key={word}>
+      {index === markIndex ? <mark>{word}</mark> : word}
+      {index < titleWords.length - 1 ? ' ' : ''}
+    </span>
   ));
 
   if (isRow) {
@@ -97,7 +101,8 @@ export function ProgramCard({ program, mode = 'plate', compact = false }) {
   }
 
   return (
-    <article className={`pc hoverable r${program.featured ? ' pc--featured' : ''}${compact ? ' pc--compact' : ''}`}>
+    <article className={`pc hoverable r${program.featured ? ' pc--featured' : ''}`}>
+      <a className="pc-hit" href={whatsappUrl} target="_blank" rel="noopener noreferrer" aria-label={`Book a trial for ${program.name}`} />
       <div className={`pc-media${isPoster ? ' has-img' : ''}`}>
         {isPoster && <img src={program.photo} alt={`${program.name} training at Monkey Mayhem`} loading="lazy" />}
         <span className={`tag ${catClass}`}>{program.category}</span>
@@ -116,7 +121,7 @@ export function ProgramCard({ program, mode = 'plate', compact = false }) {
           <div><dt>Time</dt><dd>{program.times}</dd></div>
         </dl>
         <div className="pc-actions">
-          <a className="btn btn-sm" href={whatsappUrl} target="_blank" rel="noopener noreferrer">Book a trial</a>
+          <a className="btn btn-sm pc-cta" href={whatsappUrl} target="_blank" rel="noopener noreferrer">Book a trial</a>
           <Link className="pc-link" to={`/batches?program=${program.slug}#timetable`}>Timetable →</Link>
         </div>
       </div>
@@ -125,14 +130,23 @@ export function ProgramCard({ program, mode = 'plate', compact = false }) {
 }
 
 /* ---- weekly timetable grid ---- */
-export function WeekGrid() {
+export function WeekGrid({ highlightProgram = '' }) {
+  const [hitProgram, setHitProgram] = useState(highlightProgram);
+
+  useEffect(() => {
+    setHitProgram(highlightProgram);
+    if (!highlightProgram) return undefined;
+    const timer = setTimeout(() => setHitProgram(''), 2000);
+    return () => clearTimeout(timer);
+  }, [highlightProgram]);
+
   return (
     <div className="week r">
       {weekData.map((d) => (
         <div className="day" key={d.day}>
           <h3>{d.day}</h3>
           {d.slots.map(([time, cls, level]) => (
-            <div className="slot" key={time + cls}>
+            <div className={`slot${hitProgram && cls === hitProgram ? ' slot--hit' : ''}`} key={time + cls}>
               <div className="t">{time}</div>
               <div className="c">{cls}</div>
               <div className="lv">{level}</div>

@@ -353,6 +353,12 @@ html[data-surface='site'] body {
 }
 .mm-site .pc:hover,
 .mm-site .pc:focus-within { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 10px 30px rgba(228,52,44,.14); }
+.mm-site .pc:focus-within { outline: 3px solid var(--accent); outline-offset: 3px; }
+.mm-site .pc-hit { position: absolute; inset: 0; z-index: 0; }
+.mm-site .pc-hit:focus-visible { outline: none; }
+.mm-site .pc-media, .mm-site .pc-body { position: relative; z-index: 1; pointer-events: none; }
+.mm-site .pc-body a { pointer-events: auto; }
+.mm-site .pc-cta { position: relative; z-index: 2; }
 .mm-site .pc--featured { border-top: 3px solid var(--accent); }
 .mm-site .pc-media {
   position: relative;
@@ -387,8 +393,9 @@ html[data-surface='site'] body {
 .mm-site .chip[aria-pressed='true'] { color: var(--bg); background: var(--fg); border-color: var(--fg); }
 .mm-site .chip:hover { color: var(--fg); border-color: var(--fg); }
 .mm-site .pr-list { display: flex; flex-direction: column; gap: 10px; }
-.mm-site .pr { display: grid; grid-template-columns: 72px 1.6fr 1.4fr 150px; align-items: center; gap: 20px; padding: 16px 18px; color: inherit; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); transition: border-color .2s, background .2s, transform .2s; }
+.mm-site .pr { position: relative; display: grid; grid-template-columns: 72px 1.6fr 1.4fr 150px; align-items: center; gap: 20px; padding: 16px 18px; color: inherit; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); transition: border-color .2s, background .2s, transform .2s; }
 .mm-site .pr:hover { background: var(--card2); border-color: var(--accent); transform: translateX(4px); }
+.mm-site .pr:focus-within { outline: 3px solid var(--accent); outline-offset: 3px; }
 .mm-site .pr-idx { color: transparent; font: 700 italic 2.6rem/1 var(--fd); -webkit-text-stroke: 1.5px rgba(243,244,246,.35); }
 .mm-site .pr:hover .pr-idx { color: var(--accent); -webkit-text-stroke-color: var(--accent); }
 .mm-site .pr-main { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
@@ -396,7 +403,9 @@ html[data-surface='site'] body {
 .mm-site .pr-main h3 { font-size: 1.35rem; }
 .mm-site .pr-main p { color: var(--muted); font-size: .92rem; }
 .mm-site .pr-tape { display: grid; grid-template-columns: repeat(3, auto); gap: 6px 22px; margin: 0; padding-left: 20px; border-left: 2px solid var(--accent); }
-.mm-site .pr-cta { color: var(--accent); white-space: nowrap; text-align: right; font: 700 .85rem var(--fd); letter-spacing: .1em; text-transform: uppercase; }
+.mm-site .pr-cta { position: relative; z-index: 1; color: var(--accent); white-space: nowrap; text-align: right; font: 700 .85rem var(--fd); letter-spacing: .1em; text-transform: uppercase; }
+.mm-site .pr-cta::after { content: ''; position: absolute; inset: 0; z-index: 0; }
+.mm-site .slot--hit { background: var(--card2); border-left: 2px solid var(--accent); padding-left: 8px; }
 
 /* ---- record rows (Achievements) ---- */
 .mm-site .rec-row {
@@ -910,9 +919,6 @@ html[data-surface='site'] body {
   /* Tighter rhythm — 64px section padding is a lot of thumb-scrolling. */
   .mm-site .pg { padding-block: 44px; }
   .mm-site .pg-head { margin-bottom: 26px; }
-  .mm-site .home-programs .pc-media { aspect-ratio: 21 / 7; }
-  .mm-site .home-programs .pc-idx { font-size: 4.5rem; bottom: -14px; }
-  .mm-site .home-programs .pc-tape { grid-template-columns: repeat(3, auto); gap: 4px 16px; }
   .mm-site .wrap { padding-inline: 18px; }
   .mm-site .night-hero .wrap { padding-block: 44px 26px; }
   .mm-site .night-sub { font-size: 1.05rem; margin: 14px 0 22px; }
@@ -932,6 +938,12 @@ html[data-surface='site'] body {
   .mm-site .ph .cap { font-size: 0.68rem; padding: 10px 12px; white-space: nowrap; overflow: hidden; }
 }
 
+@media (max-width: 640px) {
+  .mm-site .home-programs .pc-media { aspect-ratio: 21 / 7; }
+  .mm-site .home-programs .pc-idx { font-size: 4.5rem; bottom: -14px; }
+  .mm-site .home-programs .pc-tape { grid-template-columns: repeat(3, auto); gap: 4px 16px; }
+}
+
 /* Very narrow phones (≤400px): the stat strip and hero need one more step. */
 @media (max-width: 400px) {
   .mm-site .lt { grid-template-columns: 1fr; }
@@ -946,4 +958,5 @@ html[data-surface='site'] body {
 @media (prefers-reduced-motion: reduce) {
   .mm-site .r { opacity: 1; transform: none; transition: none; }
   .mm-site * { animation: none !important; }
+  .mm-site .pc, .mm-site .pr, .mm-site .pc-media.has-img img { transition: none; }
 }
