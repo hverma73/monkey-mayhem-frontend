@@ -13,10 +13,17 @@ export default function Team() {
       <div className="grid g-auto">
         {team.map((m, i) => (
           <article className="card r" key={`${m.name}-${i}`}>
-            <PhotoSlot
-              label={m.real ? 'Coach Nithesh — corner shot, wraps on' : `${m.role} — headshot`}
-              variant="tall"
-            />
+            {m.real ? (
+              <PhotoSlot
+                variant="tall"
+                src="/photos/coach-nithesh.jpg"
+                alt={`${m.name}, ${m.role} at Monkey Mayhem Fight Club`}
+              />
+            ) : (
+              <div className="coach-plate" aria-label={`${m.name}, ${m.role}`}>
+                <span>{m.name.split(' ').map((part) => part[0]).join('')}</span>
+              </div>
+            )}
             <div className="card-b">
               <h3>{m.name}</h3>
               {m.alias && (
@@ -41,7 +48,7 @@ export default function Team() {
                   rel="noopener noreferrer"
                   href={site.insta}
                 >
-                  @the_vintage_monkey →
+                  @monkey_mayhem_fight_club →
                 </a>
               )}
             </div>

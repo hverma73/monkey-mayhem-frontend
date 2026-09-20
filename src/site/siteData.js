@@ -1,4 +1,8 @@
 import { waTo } from '../utils.js';
+import { programs } from '../data/programs.js';
+import { week } from '../data/timetable.js';
+
+export { programs, week };
 
 /* =====================================================================
    PUBLIC SITE CONTENT — every word the marketing site shows lives here.
@@ -37,83 +41,6 @@ export const stats = [
   { n: '50', l: 'Fight-team athletes' },
   { n: '120', l: 'Titles & medals' },
   { n: '9', l: 'Years in Mangaluru' },
-];
-
-export const programs = [
-  {
-    name: 'Mixed Martial Arts',
-    cat: 'MMA',
-    blurb:
-      'The whole fight: striking, takedowns, ground work and cage craft in one program.',
-    level: 'All levels · fight-team base',
-  },
-  {
-    name: 'Boxing',
-    cat: 'Striking',
-    blurb: 'Hands, footwork, head movement. The sweet science, drilled clean.',
-    level: 'Beginners welcome',
-  },
-  {
-    name: 'Muay Thai',
-    cat: 'Striking',
-    blurb:
-      'Eight limbs — fists, elbows, knees, shins — and the clinch that ties them together.',
-    level: 'All levels',
-  },
-  {
-    name: 'Kickboxing',
-    cat: 'Striking',
-    blurb: 'Punch-kick combinations built on footwork and a deep gas tank.',
-    level: 'All levels',
-  },
-  {
-    name: 'Brazilian Jiu-Jitsu',
-    cat: 'Grappling',
-    blurb: 'Leverage over strength. Positions, sweeps, submissions.',
-    level: 'Beginners welcome',
-  },
-  {
-    name: 'Wrestling',
-    cat: 'Grappling',
-    blurb: 'Takedowns, pins, top pressure — and the will to stay there.',
-    level: 'All levels',
-  },
-  {
-    name: 'Strength & Combat Conditioning',
-    cat: 'Conditioning',
-    blurb: 'Fight-specific strength: grip, hips, neck, lungs.',
-    level: 'Everyone',
-  },
-  {
-    name: 'Cross Training',
-    cat: 'Conditioning',
-    blurb: 'Mixed-modal work for all-round athleticism.',
-    level: 'Everyone',
-  },
-  {
-    name: 'Functional Fitness',
-    cat: 'Conditioning',
-    blurb: 'Lift, carry, climb, sprint — strength that shows up everywhere.',
-    level: 'Everyone',
-  },
-  {
-    name: 'Body Toning',
-    cat: 'Conditioning',
-    blurb: 'Targeted sculpt-and-strength work for definition.',
-    level: 'Everyone',
-  },
-  {
-    name: 'Yoga',
-    cat: 'Recovery',
-    blurb: 'Mobility and breath — the recovery half of hard training.',
-    level: 'Everyone',
-  },
-  {
-    name: 'Personal Training',
-    cat: '1-on-1',
-    blurb: 'Private coaching in any discipline, built around your goals.',
-    level: 'By appointment',
-  },
 ];
 
 /* Named batches for enrolment + a full weekly grid. */
@@ -162,63 +89,6 @@ export const batches = [
     coach: 'Grappling team',
     spots: 'Open',
     level: 'All levels',
-  },
-];
-
-export const week = [
-  {
-    day: 'Mon',
-    slots: [
-      ['06:00', 'S&C', 'All levels'],
-      ['07:00', 'Boxing', 'Beginners'],
-      ['18:00', 'MMA', 'All levels'],
-      ['19:00', 'Yoga', 'Open'],
-    ],
-  },
-  {
-    day: 'Tue',
-    slots: [
-      ['06:00', 'Boxing', 'All levels'],
-      ['07:00', 'BJJ', 'Beginners'],
-      ['18:00', 'Kickboxing', 'All levels'],
-      ['19:00', 'MMA', 'Fight team'],
-    ],
-  },
-  {
-    day: 'Wed',
-    slots: [
-      ['06:00', 'S&C', 'All levels'],
-      ['07:00', 'Kickboxing', 'All levels'],
-      ['18:00', 'Wrestling', 'All levels'],
-      ['19:00', 'Boxing', 'Beginners'],
-    ],
-  },
-  {
-    day: 'Thu',
-    slots: [
-      ['06:00', 'Muay Thai', 'All levels'],
-      ['07:00', 'Wrestling', 'All levels'],
-      ['18:00', 'MMA', 'All levels'],
-      ['19:00', 'Yoga', 'Open'],
-    ],
-  },
-  {
-    day: 'Fri',
-    slots: [
-      ['06:00', 'Functional', 'All levels'],
-      ['07:00', 'MMA', 'All levels'],
-      ['18:00', 'BJJ', 'All levels'],
-      ['19:00', 'S&C', 'All levels'],
-    ],
-  },
-  {
-    day: 'Sat',
-    slots: [
-      ['07:00', 'MMA', 'All levels'],
-      ['08:00', 'Sparring', 'Invite'],
-      ['17:00', 'BJJ', 'All levels'],
-      ['19:00', 'Open mat', 'Open'],
-    ],
   },
 ];
 

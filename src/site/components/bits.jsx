@@ -1,7 +1,7 @@
 /* Small building blocks shared by every public-site page. */
 import { Link } from 'react-router-dom';
-import { ProgramBadge } from './ProgramIcons.jsx';
-import { wa, week as weekData } from '../siteData.js';
+import { site, wa, week as weekData } from '../siteData.js';
+import { waTo } from '../../utils.js';
 
 /* ---- photo slot -------------------------------------------------------
    A real photo when `src` is given, otherwise the labelled placeholder that
@@ -12,28 +12,11 @@ import { wa, week as weekData } from '../siteData.js';
    Google listing are not an option: reviewer-uploaded photos belong to the
    reviewer, and the Maps Platform terms forbid re-hosting any of them.       */
 export function PhotoSlot({ label, variant = '', src, alt }) {
-  if (src) {
-    return (
-      <div className={`ph has-img ${variant}`.trim()}>
-        <img src={src} alt={alt || label} loading="lazy" />
-      </div>
-    );
-  }
+  if (!src) return null;
   return (
-    <div className={`ph ${variant}`.trim()}>
-      <span className="cap">
-        <CameraIcon /> <b>PHOTO</b> {label}
-      </span>
+    <div className={`ph has-img ${variant}`.trim()}>
+      <img src={src} alt={alt || label} loading="lazy" />
     </div>
-  );
-}
-
-function CameraIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round">
-      <path d="M3 8h4l2-2h6l2 2h4v12H3z" />
-      <circle cx="12" cy="13" r="3.2" />
-    </svg>
   );
 }
 
@@ -81,20 +64,60 @@ export function SectionHead({ eyebrow, title, moreTo, moreLabel }) {
 }
 
 /* ---- program card ---- */
-export function ProgramCard({ program }) {
-  const catClass = `c-${program.cat.replace(/[^A-Za-z0-9-]/g, '-')}`;
+export function ProgramCard({ program, mode = 'plate', compact = false }) {
+  const catClass = `c-${program.category.replace(/[^A-Za-z0-9-]/g, '-')}`;
+  const isRow = mode === 'row';
+  const isPoster = mode === 'poster' || Boolean(program.photo);
+  const whatsappUrl = waTo(site.phoneRaw, program.whatsappText);
+  const titleWords = program.name.split(' ');
+  const markIndex = titleWords.length > 1 ? Math.min(1, titleWords.length - 1) : 0;
+  const title = titleWords.map((word, index) => (
+    index === markIndex ? <mark key={word}>{word}</mark> : `${word} `
+  ));
+
+  if (isRow) {
+    return (
+      <article className="pr r">
+        <span className="pr-idx" aria-hidden="true">{program.index}</span>
+        <div className="pr-main">
+          <span><span className={`tag ${catClass}`}>{program.category}</span></span>
+          <h3>{program.name}</h3>
+          <p>{program.tagline}</p>
+        </div>
+        <dl className="pr-tape">
+          <div><dt>Level</dt><dd>{program.level}</dd></div>
+          <div><dt>Days</dt><dd>{program.days}</dd></div>
+          <div><dt>Time</dt><dd>{program.times}</dd></div>
+        </dl>
+        <a className="pr-cta" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+          Book a trial →
+        </a>
+      </article>
+    );
+  }
+
   return (
-    <article className="card hoverable r">
-      <div className="prog-ph">
-        <PhotoSlot label={program.name} />
-        <ProgramBadge name={program.name} />
+    <article className={`pc hoverable r${program.featured ? ' pc--featured' : ''}${compact ? ' pc--compact' : ''}`}>
+      <div className={`pc-media${isPoster ? ' has-img' : ''}`}>
+        {isPoster && <img src={program.photo} alt={`${program.name} training at Monkey Mayhem`} loading="lazy" />}
+        <span className={`tag ${catClass}`}>{program.category}</span>
+        {!isPoster && <i className="pc-slab" aria-hidden="true" />}
+        <span className="pc-idx" aria-hidden="true">{program.index}</span>
+        {program.featured && <span className="pc-event">Main event</span>}
+        {isPoster && <h3 className="pc-over">{title}</h3>}
       </div>
-      <div className="card-b">
-        <span className={`tag ${catClass}`}>{program.cat}</span>
-        <h3>{program.name}</h3>
-        <p>{program.blurb}</p>
-        <div className="lv" style={{ marginTop: 10 }}>
-          {program.level}
+      <div className="pc-body">
+        {!isPoster && <h3>{program.name}</h3>}
+        <p>{program.tagline}</p>
+        <dl className="pc-tape">
+          <div><dt>Level</dt><dd>{program.level}</dd></div>
+          <div><dt>Coach</dt><dd>{program.coach}</dd></div>
+          <div><dt>Days</dt><dd>{program.days}</dd></div>
+          <div><dt>Time</dt><dd>{program.times}</dd></div>
+        </dl>
+        <div className="pc-actions">
+          <a className="btn btn-sm" href={whatsappUrl} target="_blank" rel="noopener noreferrer">Book a trial</a>
+          <Link className="pc-link" to={`/batches?program=${program.slug}#timetable`}>Timetable →</Link>
         </div>
       </div>
     </article>

@@ -46,7 +46,7 @@ export default function Batches() {
         ))}
       </div>
 
-      <h2 className="h2 r" style={{ margin: '44px 0 18px' }}>
+      <h2 id="timetable" className="h2 r" style={{ margin: '44px 0 18px' }}>
         The full week
       </h2>
       <WeekGrid />

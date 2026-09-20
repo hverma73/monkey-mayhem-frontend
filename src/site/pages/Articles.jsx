@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
-import { CtaStrip, PageHead, PhotoSlot } from '../components/bits.jsx';
+import { CtaStrip, PageHead } from '../components/bits.jsx';
 import { posts } from '../siteData.js';
 import NotFound from './NotFound.jsx';
 
@@ -14,7 +14,6 @@ export function ArticleList() {
       <div className="grid g-auto">
         {posts.map((p) => (
           <Link className="card hoverable r" to={`/articles/${p.id}`} key={p.id}>
-            <PhotoSlot label={p.title} />
             <div className="card-b">
               <span className="tag">{p.cat}</span>
               <h3>{p.title}</h3>
@@ -50,8 +49,6 @@ export function ArticlePost() {
       <div className="lv r" style={{ marginBottom: 20 }}>
         {post.date} · {post.author} · {post.read}
       </div>
-
-      <PhotoSlot label={`${post.title} — hero image`} variant="wide" />
 
       <div className="r" style={{ marginTop: 22 }}>
         {post.body.map((para, i) => (

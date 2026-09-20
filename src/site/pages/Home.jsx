@@ -38,7 +38,7 @@ export default function Home() {
             moreTo="/programs"
             moreLabel="Full fight card"
           />
-          <div className="grid g-auto">
+          <div className="grid g-auto home-programs">
             {programs.slice(0, 6).map((p) => (
               <ProgramCard key={p.name} program={p} />
             ))}
