@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, Fragment } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { api } from "../api.js";
+import { api } from "../adminApi.js";
 import { fmtDate, formatMoney, triggerDownload } from "../utils.js";
 import Pagination from "../components/Pagination.jsx";
 

@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 
-/* Gates the /admin subtree. Two distinct rejections:
+/* Gates the console subtree. Two distinct rejections:
      - not signed in       → the login screen
      - signed in, not admin → the public site (they're a guest here)         */
 export default function ProtectedRoute({ children }) {

@@ -5,7 +5,6 @@ import Chatbot from './Chatbot.jsx';
 import { ToastProvider } from './toast.jsx';
 import useReveal from './useReveal.js';
 import { site, wa } from './siteData.js';
-import { useAuth } from '../context/AuthContext.jsx';
 import usePageMeta from '../usePageMeta.js';
 import './site.css';
 
@@ -67,8 +66,6 @@ function SiteShell() {
 }
 
 function SiteNav({ onBurger }) {
-  const { user, isAdmin } = useAuth();
-
   return (
     <header className="nav">
       <div className="wrap nav-in">
@@ -95,15 +92,6 @@ function SiteNav({ onBurger }) {
         </button>
 
         <div className="nav-right">
-          {user && isAdmin ? (
-            <Link className="txtlink" to="/admin">
-              Staff console
-            </Link>
-          ) : (
-            <Link className="txtlink" to="/login">
-              Log in
-            </Link>
-          )}
           <a
             className="btn btn-sm"
             target="_blank"

@@ -9,6 +9,11 @@ const outDir = path.join(rootDir, 'dist');
 const serverModuleUrl = pathToFileURL(path.join(rootDir, '.prerender', 'entry-server.js')).href;
 const { PUBLIC_ROUTES, render } = await import(serverModuleUrl);
 const publicRoutes = PUBLIC_ROUTES;
+const adminPath = (process.env.VITE_ADMIN_PATH || '').replace(/^\/+|\/+$/g, '');
+if (!adminPath) throw new Error('VITE_ADMIN_PATH is required');
+if (publicRoutes.some((route) => route.startsWith(`/${adminPath}`))) {
+  throw new Error('PUBLIC_ROUTES must not include the admin path');
+}
 
 const ROUTE_META = {
   '/': { title: 'MMA, Boxing & Muay Thai Gym in Mangaluru (Mangalore) | Monkey Mayhem', description: 'Monkey Mayhem Fight Club in Kadri, Mangaluru offers combat sports and fitness classes with MMA, boxing, Muay Thai, BJJ and yoga.' },
@@ -65,7 +70,7 @@ async function renderRoute(url) {
 
 async function main() {
   const template = fs.readFileSync(path.join(rootDir, 'dist', 'index.html'), 'utf8');
-  fs.writeFileSync(path.join(outDir, 'robots.txt'), 'User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /login\nSitemap: https://monkeymayhemfightclub.com/sitemap.xml\n');
+  fs.writeFileSync(path.join(outDir, 'robots.txt'), 'User-agent: *\nAllow: /\nSitemap: https://monkeymayhemfightclub.com/sitemap.xml\n');
   fs.writeFileSync(path.join(outDir, 'sitemap.xml'), buildSitemap());
 
   for (const url of publicRoutes) {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { api } from '../../api.js';
+import { api } from '../../adminApi.js';
 import { formatMoney, triggerDownload } from '../../utils.js';
 import Pagination from '../../components/Pagination.jsx';
 

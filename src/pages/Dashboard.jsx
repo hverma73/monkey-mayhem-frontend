@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { api } from '../api.js';
+import { api } from '../adminApi.js';
 import { fmtDate, daysClass, daysLabel, triggerDownload } from '../utils.js';
 import Pagination from '../components/Pagination.jsx';
 

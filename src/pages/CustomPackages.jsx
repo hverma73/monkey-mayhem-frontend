@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { api } from '../api.js';
+import { api } from '../adminApi.js';
 
 const GENDERS = ['Male', 'Female', 'Other'];
 const emptyForm = { name: '', duration_days: '', price: '', gender: 'All' };

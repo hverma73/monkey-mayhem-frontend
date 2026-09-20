@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && vite build --ssr src/entry-server.jsx --outDir .prerender && node scripts/prerender.mjs",
+    "build": "vite build && vite build -c vite.admin.config.js && node scripts/finish-admin.mjs && vite build --ssr src/entry-server.jsx --outDir .prerender && node scripts/prerender.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -4,7 +4,7 @@ import InvoicesTab from './payments/InvoicesTab.jsx';
 import PaymentHistoryTab from './payments/PaymentHistoryTab.jsx';
 import MemberReportTab from './payments/MemberReportTab.jsx';
 import Pagination from '../components/Pagination.jsx';
-import { api } from '../api.js';
+import { api } from '../adminApi.js';
 import { fmtDate, formatMoney, plural, triggerDownload } from '../utils.js';
 
 const TABS = [

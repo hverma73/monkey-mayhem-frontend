@@ -1,22 +1,21 @@
 import { useEffect, useState } from 'react';
-import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import Logo from './Logo.jsx';
 import ThemeToggle from './ThemeToggle.jsx';
 
 const LINKS = [
-  ['/admin', 'Dashboard', true],
-  ['/admin/members/new', 'Add Member'],
-  ['/admin/calendar', 'Calendar'],
-  ['/admin/packages', 'Custom Package Plan'],
-  ['/admin/payments', 'Payments'],
-  ['/admin/import', 'Import Members'],
-  ['/admin/leads', 'Leads'],
+  ['/', 'Dashboard', true],
+  ['/members/new', 'Add Member'],
+  ['/calendar', 'Calendar'],
+  ['/packages', 'Custom Package Plan'],
+  ['/payments', 'Payments'],
+  ['/import', 'Import Members'],
+  ['/leads', 'Leads'],
 ];
 
 export default function Layout() {
   const { user, logout } = useAuth();
-  const navigate = useNavigate();
   const { pathname } = useLocation();
   // Below 820px the nav collapses behind a burger (it used to just disappear,
   // leaving the console unnavigable on a phone).
@@ -28,7 +27,7 @@ export default function Layout() {
   // signed-out visitor sees, so there's nowhere else sensible to land.
   function handleLogout() {
     logout();
-    navigate('/');
+    window.location.assign('/');
   }
 
   return (
@@ -61,7 +60,7 @@ export default function Layout() {
 
         <div className="topbar-right">
           <span className="who">In your corner: <b>{user?.name}</b></span>
-          <Link className="btn ghost sm" to="/">View site</Link>
+          <a className="btn ghost sm" href="/">View site</a>
           <ThemeToggle />
           <button className="btn ghost sm" onClick={handleLogout}>Log out</button>
         </div>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { api } from '../api.js';
+import { api } from '../adminApi.js';
 import { triggerDownload } from '../utils.js';
 
 export default function ImportPage() {

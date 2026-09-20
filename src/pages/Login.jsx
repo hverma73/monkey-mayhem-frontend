@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import { isAdminLogin } from '../config.js';
 import Logo from '../components/Logo.jsx';
@@ -14,7 +14,7 @@ export default function Login() {
   const [busy, setBusy] = useState(false);
 
   // Already signed in as an admin? Skip the form.
-  if (user && isAdmin) return <Navigate to="/admin" replace />;
+  if (user && isAdmin) return <Navigate to="/" replace />;
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -23,7 +23,7 @@ export default function Login() {
     try {
       const signedIn = await login(username, password);
       if (isAdminLogin(signedIn)) {
-        navigate('/admin');
+        navigate('/');
       } else {
         // Correct password, but this account isn't on the admin list in
         // src/config.js — so it gets the public site, not the console.
@@ -78,7 +78,7 @@ export default function Login() {
         </form>
 
         <p className="login-back">
-          <Link to="/">← Back to the club website</Link>
+          <a href="/">← Back to the club website</a>
         </p>
       </div>
     </div>
