@@ -6,7 +6,9 @@ import { useLocation } from 'react-router-dom';
    prefers-reduced-motion (and browsers without IntersectionObserver) by
    revealing everything immediately. */
 export default function useReveal() {
-  const { pathname } = useLocation();
+  // Re-scan on `search` too: /programs filters by writing ?category=, which
+  // mounts fresh `.r` rows without changing the pathname.
+  const { pathname, search } = useLocation();
 
   useEffect(() => {
     const els = document.querySelectorAll('.mm-site .r:not(.in)');
@@ -31,5 +33,5 @@ export default function useReveal() {
     );
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, [pathname]);
+  }, [pathname, search]);
 }
