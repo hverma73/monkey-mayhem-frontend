@@ -22,6 +22,7 @@ const ROUTE_META = {
   '/contact': { title: 'Book a Free Trial – Fight Gym in Kadri, Mangaluru | Monkey Mayhem', description: 'Book a free trial at Monkey Mayhem Fight Club in Kadri, Mangaluru.' },
   '/team': { title: 'Coaches & Team | Monkey Mayhem Kadri, Mangaluru', description: 'Meet the coaches and team at Monkey Mayhem Fight Club in Kadri, Mangaluru.' },
   '/achievements': { title: 'Wins & Achievements | Monkey Mayhem Mangaluru', description: 'See the achievements and competitive milestones from Monkey Mayhem Fight Club in Mangaluru.' },
+  '/gallery': { title: 'Gallery – Inside the Gym | Monkey Mayhem Kadri, Mangaluru', description: 'Photos from Monkey Mayhem Fight Club in Kadri, Mangaluru: training sessions, the fight team, competitions and the gym floor.' },
   '/events': { title: 'Events & Open Days | Monkey Mayhem Mangaluru', description: 'Upcoming events, open days and training experiences at Monkey Mayhem in Mangaluru.' },
   '/articles': { title: 'Training Articles & Guides | Monkey Mayhem', description: 'Read beginner guides and training notes from Monkey Mayhem Fight Club in Mangaluru.' },
 };

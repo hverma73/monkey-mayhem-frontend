@@ -9,7 +9,7 @@ RewriteRule ^index\.html$ / [R=301,L]
 RewriteRule ^about-us\.html$ /team [R=301,L]
 RewriteRule ^contact\.html$ /contact [R=301,L]
 RewriteRule ^services\.html$ /programs [R=301,L]
-RewriteRule ^gallery\.html$ / [R=301,L]
+RewriteRule ^gallery\.html$ /gallery [R=301,L]
 RewriteRule ^programs\.html$ /programs [R=301,L]
 
 # SPA fallback for client-only routes

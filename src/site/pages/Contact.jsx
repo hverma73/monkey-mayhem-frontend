@@ -199,8 +199,8 @@ export default function Contact() {
           <p style={{ marginBottom: 6, fontWeight: 600 }}>{site.address}</p>
           <p className="lv" style={{ marginBottom: 16 }}>{site.hours}</p>
 
-          {/* The club's own interior shot, from their previous site — 570x442,
-              so it is cropped to the wide slot rather than upscaled. */}
+          {/* The club's own group shot from their previous site (570x442),
+              upscaled 2.5x with Real-ESRGAN and cropped to the wide slot. */}
           <PhotoSlot
             label="Map / storefront — Kadri, Mangaluru"
             variant="wide"

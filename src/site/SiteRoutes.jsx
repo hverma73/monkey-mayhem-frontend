@@ -5,6 +5,7 @@ import Programs from './pages/Programs.jsx';
 import Batches from './pages/Batches.jsx';
 import Team from './pages/Team.jsx';
 import Achievements from './pages/Achievements.jsx';
+import Gallery from './pages/Gallery.jsx';
 import Events from './pages/Events.jsx';
 import { ArticleList, ArticlePost } from './pages/Articles.jsx';
 import Contact from './pages/Contact.jsx';
@@ -19,6 +20,7 @@ export function SiteRoutes() {
         <Route path="/batches" element={<Batches />} />
         <Route path="/team" element={<Team />} />
         <Route path="/achievements" element={<Achievements />} />
+        <Route path="/gallery" element={<Gallery />} />
         <Route path="/events" element={<Events />} />
         <Route path="/articles" element={<ArticleList />} />
         <Route path="/articles/:id" element={<ArticlePost />} />

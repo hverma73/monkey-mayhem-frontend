@@ -426,6 +426,161 @@ html[data-surface='site'] body {
 }
 .mm-site .rec-body h3 { font-size: 1.35rem; margin-bottom: 6px; }
 .mm-site .rec-body p { color: var(--muted); font-size: 0.94rem; }
+.mm-site .rec-meta { font: 600 .78rem var(--fu); letter-spacing: .1em; text-transform: uppercase; color: var(--fg); margin-bottom: 6px; }
+.mm-site .rec-src { display: inline-block; margin-top: 8px; font: 700 .78rem var(--fu); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.mm-site .rec-src:hover { filter: brightness(1.15); }
+
+/* ---- gallery ---- */
+/* Columns rather than a fixed-row grid: photos keep their own aspect ratio
+   (landscape team shots next to portrait training frames) without cropping.
+   width/height on every <img> reserve the box before the file arrives. */
+.mm-site .gal-grid { columns: 3 280px; column-gap: 14px; }
+.mm-site .gal-item {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0 0 14px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  overflow: hidden;
+  cursor: zoom-in;
+  break-inside: avoid;
+}
+.mm-site .gal-item img { width: 100%; height: auto; transition: transform .5s ease; }
+.mm-site .gal-item:hover img,
+.mm-site .gal-item:focus-visible img { transform: scale(1.04); }
+.mm-site .gal-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.mm-site .gal-cap {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 28px 12px 10px;
+  background: linear-gradient(to top, rgba(11, 12, 14, .88), transparent);
+  color: var(--fg);
+  font: 600 .78rem var(--fu);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-align: left;
+  opacity: 0;
+  transition: opacity .2s ease;
+}
+.mm-site .gal-item:hover .gal-cap,
+.mm-site .gal-item:focus-visible .gal-cap { opacity: 1; }
+@media (hover: none) { .mm-site .gal-cap { opacity: 1; } }
+
+.mm-site .gal-box {
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: rgba(6, 7, 9, .94);
+  color: var(--fg);
+}
+.mm-site .gal-box::backdrop { background: rgba(0, 0, 0, .6); }
+.mm-site .gal-box figure {
+  margin: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 56px 64px 20px;
+}
+.mm-site .gal-box figure img { max-width: 100%; max-height: calc(100vh - 140px); width: auto; height: auto; object-fit: contain; }
+.mm-site .gal-box figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 18px; width: min(100%, 1100px); font-size: .92rem; }
+.mm-site .gal-src { color: var(--muted); font: 600 .78rem var(--fu); letter-spacing: .1em; text-transform: uppercase; }
+.mm-site .gal-src a { color: var(--accent); }
+.mm-site .gal-nav,
+.mm-site .gal-close {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: rgba(21, 24, 29, .85);
+  color: var(--fg);
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.mm-site .gal-nav:hover,
+.mm-site .gal-close:hover { border-color: var(--fg); }
+.mm-site .gal-nav { top: 50%; transform: translateY(-50%); }
+.mm-site .gal-nav.prev { left: 12px; }
+.mm-site .gal-nav.next { right: 12px; }
+.mm-site .gal-close { top: 12px; right: 12px; }
+
+.mm-site .gal-jump { display: flex; gap: 8px; flex-wrap: wrap; }
+.mm-site .gal-jump a { color: var(--fg); border: 1px solid var(--line); padding: 7px 14px; font: 700 .8rem var(--fd); letter-spacing: .1em; text-transform: uppercase; }
+.mm-site .gal-jump a:hover { border-color: var(--fg); }
+.mm-site #photos,
+.mm-site #videos { scroll-margin-top: 84px; }
+
+/* ---- videos ---- */
+.mm-site .vid-section { margin-top: 56px; }
+.mm-site .vid-group { margin-top: 26px; }
+.mm-site .vid-group-h { font-size: 1.2rem; color: var(--muted); margin-bottom: 14px; }
+.mm-site .vid-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.mm-site .vid-grid--tall { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+.mm-site .vid-card {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--fg);
+  text-align: left;
+  overflow: hidden;
+  cursor: pointer;
+}
+.mm-site .vid-card:hover { border-color: var(--muted); }
+.mm-site .vid-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.mm-site .vid-poster { position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden; background: var(--card2); }
+.mm-site .vid-card.tall .vid-poster { aspect-ratio: 9 / 16; }
+.mm-site .vid-poster img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.mm-site .vid-card:hover .vid-poster img { transform: scale(1.04); }
+.mm-site .vid-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 62px;
+  height: 62px;
+  margin: -31px 0 0 -31px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, .55);
+  transition: transform .2s ease;
+}
+.mm-site .vid-play::after {
+  content: '';
+  position: absolute;
+  left: 25px;
+  top: 19px;
+  border-style: solid;
+  border-width: 12px 0 12px 19px;
+  border-color: transparent transparent transparent var(--accent-fg);
+}
+.mm-site .vid-card:hover .vid-play { transform: scale(1.08); }
+.mm-site .vid-body { display: flex; flex-direction: column; gap: 6px; padding: 12px 14px 14px; }
+.mm-site .vid-title { font-weight: 600; line-height: 1.35; }
+.mm-site .vid-meta { color: var(--muted); font: 600 .74rem var(--fu); letter-spacing: .1em; text-transform: uppercase; }
+
+/* The player sizes itself to the viewport so YouTube streams at HD, never at
+   card size. Instagram's embed is a fixed-width card with its own header. */
+.mm-site .vid-frame { position: relative; background: #000; }
+.mm-site .vid-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.mm-site .vid-frame.wide { width: min(1280px, 100%, calc((100vh - 150px) * 16 / 9)); aspect-ratio: 16 / 9; }
+.mm-site .vid-frame.tall { height: min(calc(100vh - 150px), 900px); aspect-ratio: 9 / 16; max-width: 100%; }
+.mm-site .vid-frame.ig { width: min(540px, 100%); height: min(calc(100vh - 150px), 600px); background: #fff; border-radius: 4px; }
+.mm-site .vid-frame.ig-tall { height: min(calc(100vh - 150px), 900px); }
 
 /* ---- event rows ---- */
 .mm-site .ev-row { display: grid; grid-template-columns: 100px 1fr; gap: 18px; align-items: start; }
@@ -936,6 +1091,18 @@ html[data-surface='site'] body {
 
   /* Placeholder captions get long; keep them on one clipped line. */
   .mm-site .ph .cap { font-size: 0.68rem; padding: 10px 12px; white-space: nowrap; overflow: hidden; }
+
+  /* Two photo columns on a phone; the viewer's arrows tuck to the bottom so
+     they never cover the photo. */
+  .mm-site .gal-grid { columns: 2; column-gap: 10px; }
+  .mm-site .gal-item { margin-bottom: 10px; }
+  .mm-site .gal-cap { display: none; }
+  .mm-site .gal-box figure { padding: 60px 12px 84px; }
+  .mm-site .gal-box figure img { max-height: calc(100vh - 200px); }
+  .mm-site .gal-nav { top: auto; bottom: 16px; transform: none; }
+  .mm-site .vid-grid { grid-template-columns: 1fr; }
+  .mm-site .vid-grid--tall { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .mm-site .vid-box figure { padding: 60px 12px 24px; }
 }
 
 @media (max-width: 640px) {
@@ -959,4 +1126,8 @@ html[data-surface='site'] body {
   .mm-site .r { opacity: 1; transform: none; transition: none; }
   .mm-site * { animation: none !important; }
   .mm-site .pc, .mm-site .pr, .mm-site .pc-media.has-img img { transition: none; }
+  .mm-site .gal-item img, .mm-site .gal-cap { transition: none; }
+  .mm-site .gal-item:hover img, .mm-site .gal-item:focus-visible img { transform: none; }
+  .mm-site .vid-poster img, .mm-site .vid-play { transition: none; }
+  .mm-site .vid-card:hover .vid-poster img, .mm-site .vid-card:hover .vid-play { transform: none; }
 }

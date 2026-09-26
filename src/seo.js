@@ -35,6 +35,12 @@ export const SEO_ROUTES = {
       'See the achievements and competitive milestones from Monkey Mayhem Fight Club in Mangaluru.',
     canonical: 'https://monkeymayhemfightclub.com/achievements',
   },
+  '/gallery': {
+    title: 'Gallery – Inside the Gym | Monkey Mayhem Kadri, Mangaluru',
+    description:
+      'Photos from Monkey Mayhem Fight Club in Kadri, Mangaluru: training sessions, the fight team, competitions and the gym floor.',
+    canonical: 'https://monkeymayhemfightclub.com/gallery',
+  },
   '/events': {
     title: 'Events & Open Days | Monkey Mayhem Mangaluru',
     description:

@@ -13,10 +13,10 @@ export default function Team() {
       <div className="grid g-auto">
         {team.map((m, i) => (
           <article className="card r" key={`${m.name}-${i}`}>
-            {m.real ? (
+            {m.photo ? (
               <PhotoSlot
                 variant="tall"
-                src="/photos/coach-nithesh.jpg"
+                src={m.photo}
                 alt={`${m.name}, ${m.role} at Monkey Mayhem Fight Club`}
               />
             ) : (

@@ -9,13 +9,14 @@ import usePageMeta from '../usePageMeta.js';
 import './site.css';
 
 /* Public-site nav. Order matters — it's the reading order of the club's
-   story: what we teach → when → who → proof → what's on → learn → talk. */
+   story: what we teach → when → who → proof → see it → what's on → learn → talk. */
 const NAV = [
   ['/', 'Home'],
   ['/programs', 'Programs'],
   ['/batches', 'Batches'],
   ['/team', 'Team'],
-  ['/achievements', 'Wins'],
+  ['/achievements', 'Achievements'],
+  ['/gallery', 'Gallery'],
   ['/events', 'Events'],
   ['/articles', 'Articles'],
   // PARKED — see the Tutorials note in App.jsx by the imports.
@@ -128,6 +129,7 @@ function SiteFooter() {
               <li><Link to="/batches">Batches</Link></li>
               <li><Link to="/team">Team</Link></li>
               <li><Link to="/achievements">Achievements</Link></li>
+              <li><Link to="/gallery">Gallery</Link></li>
               <li><Link to="/events">Events</Link></li>
             </ul>
           </div>

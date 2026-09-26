@@ -5,7 +5,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   const p = (env.VITE_ADMIN_PATH || '').replace(/^\/+|\/+$/g, '');
   const RESERVED = ['', 'assets', 'api', 'photos', 'programs', 'batches', 'team',
-    'achievements', 'events', 'articles', 'contact', 'admin', 'login'];
+    'achievements', 'gallery', 'events', 'articles', 'contact', 'admin', 'login'];
   if (RESERVED.includes(p) || !/^[a-z0-9-]{6,}$/.test(p)) {
     throw new Error('VITE_ADMIN_PATH must be a 6+ char lowercase slug that is not a public route');
   }

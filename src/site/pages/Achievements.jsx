@@ -29,7 +29,13 @@ export default function Achievements() {
             <div className="rec-year">{a.year}</div>
             <div className="rec-body">
               <h3>{a.title}</h3>
+              {a.meta && <div className="rec-meta">{a.meta}</div>}
               <p>{a.detail}</p>
+              {a.href && (
+                <a className="rec-src" href={a.href} target="_blank" rel="noopener noreferrer">
+                  {a.src || 'Source'} →
+                </a>
+              )}
             </div>
           </div>
         ))}

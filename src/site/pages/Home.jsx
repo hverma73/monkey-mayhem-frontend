@@ -216,13 +216,13 @@ function CoachSplit() {
   const coach = team[0];
   return (
     <div className="split r">
-      {/* The club's own photo of Nithesh, taken from their previous site. It is
-          only 270px square, so it is cropped to fill rather than blown up —
-          replace it with an original when one is to hand. */}
+      {/* Nithesh, cropped from the club's own 2021 WKN title team photo
+          (Instagram CTv0PZKlszD) and upscaled 4x with Real-ESRGAN to 1200x1600.
+          Replace it with an original portrait when one is to hand. */}
       <PhotoSlot
         label="Coach Nithesh — corner shot, wraps on"
         variant="tall"
-        src="/photos/coach-nithesh.jpg"
+        src={coach.photo}
         alt={`${coach.name}, head coach at Monkey Mayhem Fight Club`}
       />
       <div>

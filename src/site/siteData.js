@@ -1,8 +1,10 @@
 import { waTo } from '../utils.js';
 import { programs } from '../data/programs.js';
 import { week } from '../data/timetable.js';
+import { gallery } from '../data/gallery.js';
+import { videos } from '../data/videos.js';
 
-export { programs, week };
+export { programs, week, gallery, videos };
 
 /* =====================================================================
    PUBLIC SITE CONTENT — every word the marketing site shows lives here.
@@ -99,6 +101,7 @@ export const team = [
     role: 'Head Coach & Founder',
     tags: ['MMA', 'Muay Thai'],
     bio: 'Opened TMM in 2017 with a single mat and one rule: technique before bravado. Still teaches the fundamentals class himself.',
+    photo: '/photos/coach-nithesh.jpg',
     real: true,
   },
   {
@@ -111,41 +114,132 @@ export const team = [
   }
 ];
 
+/* The record on the Achievements page. PROVENANCE IS PART OF THE DATA: every
+   entry links to a page that states the result and ties it to the club (or to
+   Nithesh himself) — news coverage, or the club's own post. `detail` says no
+   more than that source does. Before adding a win, find a page that says it.
+
+   Removed Sep 2026: the prototype's placeholder rows (2024 state MMA medals,
+   2023 international presence, 2022 50-fighter team, 2021 boxing podiums, 2019
+   300 members, 2017 "opens in Kadri") — none had a source. Wins the club's
+   own videos show but never date (the 4 state inter-club boxing golds, the
+   Sikkim nationals quarter-finals, Akshay Shetty's KOs, Abdul Razak Sharhan's
+   pro-debut KO) live on the Gallery page's Videos section instead. Anisha
+   Shetty's 2019 UAE title is left out: no source ties it to the club.
+   Anwitha's IFMA bronze cites Wikipedia's medal table; the club tie is the
+   2018 Mangalorean.com Fed Cup entry above. */
 export const achievements = [
   {
-    year: '2024',
-    title: 'State MMA medal haul',
+    year: '2021',
+    title: 'Two WKN India titles',
+    meta: 'Sukeerth Kulal · Pratheek Surathkal · Fraggingmonk Fight Night 2',
     detail:
-      'Fighters from the team placed across multiple weight classes at the state championships.',
-  },
-  {
-    year: '2023',
-    title: 'International presence',
-    detail:
-      'The first fight club in Mangaluru to send athletes to compete on the international stage.',
-  },
-  {
-    year: '2022',
-    title: '50-fighter team',
-    detail:
-      'Crossed 50 active competitive athletes training out of the Kadri gym.',
+      'Sukeerth Kulal won the WKN India light-heavyweight title and Pratheek the featherweight title in Bangalore — the belts the club’s fight team brought home to Mangalore.',
+    src: 'The Lockerroom',
+    href: 'https://lockerroom.in/blog/view/Fraggingmonk-Fight-Night-2-Results',
   },
   {
     year: '2021',
-    title: 'Amateur boxing podiums',
-    detail: 'Multiple district and state boxing podium finishes for TMM members.',
+    title: 'Ebrahim Thouseef Ahmed — KO at Mallayudha',
+    meta: 'Mallayudha Championship 2021',
+    detail: 'Thouseef won by knockout with hard low kicks at the Mallayudha Championship.',
+    src: 'Club video · YouTube',
+    href: 'https://www.youtube.com/watch?v=G3R8I22dCN0',
+  },
+  {
+    year: '2020',
+    title: 'Five wins at the Yuva Khel Summit',
+    meta: 'Nithesh Kumar · Pavan · Dhiraj · Abdul Sharhan · Anwitha',
+    detail:
+      'Five Monkey Mayhem fighters, coach Nithesh among them, won their bouts at the Yuva Khel Summit 3.0 MMA Championship.',
+    src: 'The Lockerroom',
+    href: 'https://lockerroom.in/blog/view/Yuva-Khel-Summit-MMA-Event-Results',
   },
   {
     year: '2019',
-    title: 'Grassroots growth',
+    title: 'Anwitha J Alva — world championship bronze',
+    meta: 'IFMA World Muaythai Championships · U23 −57 kg',
+    detail: 'Anwitha won bronze in the women’s under-23 −57 kg division at the 2019 IFMA World Muaythai Championships.',
+    src: 'Wikipedia',
+    href: 'https://en.wikipedia.org/wiki/2019_IFMA_World_Muaythai_Championships',
+  },
+  {
+    year: '2019',
+    title: 'Shodhan Shetty — Pro-India Muaythai League champion',
+    meta: 'Bantamweight · Mangaluru, November 2019',
+    detail: 'Shodhan took the bantamweight title at the Pro-India Muaythai League, held in Mangaluru.',
+    src: 'Club video · Facebook',
+    href: 'https://www.facebook.com/monkeymayhemfightclub/videos/832299581657966/',
+  },
+  {
+    year: '2019',
+    title: 'Avani S Kumar — national gold',
+    meta: '45–48 kg · Best Amateur Female Fighter',
     detail:
-      'Passed 300 members trained, expanding from striking into full MMA and grappling.',
+      'Training under Nithesh at Monkey Mayhem, Avani took first place in the 45–48 kg category at the national Muay Thai competition and was named Best Amateur Female Fighter.',
+    src: 'Daijiworld',
+    href: 'https://www.daijiworld.com/news/newsDisplay?newsID=647851',
+  },
+  {
+    year: '2019',
+    title: 'Hosted the Senior National Muay Thai Championship',
+    meta: 'Mangaluru · 20–24 November · 27 states',
+    detail:
+      'With the Muaythai Association of Karnataka, the club hosted the Senior National Muay Thai Championship in Mangaluru — the first event of its calibre in coastal Karnataka.',
+    src: 'Mangalorean.com',
+    href: 'https://www.mangalorean.com/the-big-fight-is-on-pro-india-muay-thai-league-2019-launched-1st-time-in-kudla-the-land-of-warriors/',
+  },
+  {
+    year: '2018',
+    title: '11 medals at the MINF Senior National Fed Cup',
+    meta: 'Srinagar · April 2018 · 13 fighters entered',
+    detail:
+      'Eleven of the club’s 13 fighters medalled, with gold for Ankush Bhandary, Uwaiz Jalihal, Nithesh Kumar, Sukeerthan K, Farzeen Ahmed, Anwitha J Alva and Anisha R Shetty.',
+    src: 'Mangalorean.com',
+    href: 'https://www.mangalorean.com/13-fighters-of-mmfc-fc-of-which-11-bag-medals-in-minf-sr-natl-fed-cup-2018/',
+  },
+  {
+    year: '2018',
+    title: 'First-ever women’s league champions',
+    meta: 'Anwitha J Alva · Anisha R Shetty',
+    detail:
+      'At the same Fed Cup, Anwitha (51–55 kg) and Anisha (55–60 kg) won the Women’s Pro-Am League fights — the first champions of the women’s league in their weight classes.',
+    src: 'Mangalorean.com',
+    href: 'https://www.mangalorean.com/13-fighters-of-mmfc-fc-of-which-11-bag-medals-in-minf-sr-natl-fed-cup-2018/',
+  },
+  {
+    year: '2018',
+    title: 'Hosted the Karnataka State Muay Thai Championship',
+    meta: 'Officer’s Club, Lalbagh · 7 October',
+    detail:
+      'Organised by the Dakshina Kannada District Muay Thai Association and hosted by Monkey Mayhem Fight Club.',
+    src: 'Daijiworld',
+    href: 'https://www.daijiworld.com/news/newsDisplay?newsID=531802',
   },
   {
     year: '2017',
-    title: 'TMM opens in Kadri',
+    title: 'Monkey Mayhem opens its fight club & fitness centre',
+    meta: 'Hampanakatta, Mangaluru · November 2017',
+    detail: 'The fight club and fitness centre opened its doors in Mangaluru.',
+    src: 'Daijiworld',
+    href: 'https://www.daijiworld.com/news/newsDisplay?newsID=483877',
+  },
+  {
+    year: '2017',
+    title: 'Coach Nithesh leads Karnataka to the overall title',
+    meta: 'National Thai Boxing Championship · January 2017',
     detail:
-      'Monkey Mayhem Fight Club is founded on a single mat, next to Kadri Dwara.',
+      'As team coach, Nithesh took 18 Karnataka fighters to the nationals, where they finished overall champions with 6 gold, 8 silver and 4 bronze.',
+    src: 'Mangalorean.com',
+    href: 'https://www.mangalorean.com/ktaka-muay-thai-team-overall-champs-natl-thai-boxing-championship/',
+  },
+  {
+    year: '2015',
+    title: 'Nithesh Kumar — national Muay Thai gold',
+    meta: '71–75 kg · Senior National Muaythai Championship, Chhattisgarh',
+    detail: 'Nithesh won gold in the 71–75 kg category at the 2015 Senior National Muaythai Championship.',
+    src: 'Mangalorean.com',
+    href: 'https://www.mangalorean.com/art-eight-limbs-birth-muaythai-assn-karnataka/',
   },
 ];
 
