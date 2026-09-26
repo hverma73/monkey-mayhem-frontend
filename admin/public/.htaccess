@@ -1,8 +1,4 @@
 Header set X-Robots-Tag "noindex, nofollow"
-AuthType Basic
-AuthName "Staff"
-AuthUserFile __ADMIN_HTPASSWD_PATH__
-Require valid-user
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteCond %{REQUEST_FILENAME} !-f
